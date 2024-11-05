@@ -15,6 +15,7 @@ public with sharing class AccountDataController {
     
     @AuraEnabled(cacheable=true)
     public static List<AccountWrapper> getAccountData() {
+        System.debug('test');
         List<Account> accounts = [
             SELECT Id, Name, (SELECT Id, Amount, StageName FROM Opportunities),
                     (SELECT Id, Name, Email FROM Contacts)
@@ -38,6 +39,10 @@ public with sharing class AccountDataController {
 
             accountWrappers.add(wrapper);
         }
+        System.debug('test');
+        System.debug(accountWrappers.get(0).totalOpportunities);
+        System.debug(accountWrappers.get(0).closedWonValue);
+        System.debug(accountWrappers.get(0).account);
 
         return accountWrappers;
     }
