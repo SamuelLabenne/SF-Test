@@ -1,0 +1,42 @@
+<template>
+    <template if:true={contacts}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={contacts} for:item="contact">
+                    <tr key={contact.id}>
+                        <td>
+                            <lightning-input type="text" value={contact.fields.Name.value}
+                                             data-id={contact.id} 
+                                             data-field="Name" 
+                                             onchange={handleFieldChange}></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input type="email" value={contact.fields.Email.value}
+                                             data-id={contact.id} 
+                                             data-field="Email" 
+                                             onchange={handleFieldChange}></lightning-input>
+                        </td>
+                        <td>
+                            <lightning-input type="tel" value={contact.fields.Phone.value}
+                                             data-id={contact.id} 
+                                             data-field="Phone" 
+                                             onchange={handleFieldChange}></lightning-input>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <lightning-button label="Save Changes" onclick={saveChanges}></lightning-button>
+    </template>
+    <template if:true={error}>
+        <p>Error loading contacts: {error}</p>
+    </template>
+</template>

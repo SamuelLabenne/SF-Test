@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Account Data with Opportunities and Contacts">
+        <template if:true={accountData}>
+            <template for:each={accountData} for:item="acc">
+                <div key={acc.account.Id} class="slds-box slds-m-around_medium">
+                    <h2>{acc.account.Name}</h2>
+                    <p>Total Opportunities: {acc.totalOpportunities}</p>
+                    <p>Closed-Won Opportunity Value: {acc.closedWonValue}</p>
+
+                    <h3>Contacts</h3>
+                    <template for:each={acc.contacts} for:item="contact">
+                        <p key={contact.Id}>{contact.Name} - {contact.Email}</p>
+                    </template>
+                </div>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p>{error}</p>
+        </template>
+    </lightning-card>
+    
+</template>
