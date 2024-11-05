@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Product List">
+        <div class="slds-m-around_medium">
+            <!-- Filter Section -->
+            <lightning-input 
+                type="number" 
+                label="Minimum Price" 
+                value={minPrice} 
+                onchange={handleMinPriceChange}>
+            </lightning-input>
+
+            <lightning-combobox 
+                label="Sort By" 
+                value={sortBy} 
+                options={sortOptions}
+                onchange={handleSortChange}>
+            </lightning-combobox>
+        </div>
+
+        <!-- Product List Display -->
+        <template if:true={filteredProducts}>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Stock Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={filteredProducts} for:item="product">
+                        <tr key={product.id}>
+                            <td>{product.name}</td>
+                            <td>{product.category}</td>
+                            <td>{product.unitPrice}</td>
+                            <td>{product.stockQuantity}</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        
+        <!-- Category Totals -->
+        <h3 class="slds-text-heading_medium slds-m-top_medium">Total Inventory Value by Category</h3>
+        <template for:each={categoryTotalsArray} for:item="entry">
+            <p key={entry.category}>
+                {entry.category}: {entry.totalValueFormatted}
+            </p>
+        </template>
+    </lightning-card>
+</template>
